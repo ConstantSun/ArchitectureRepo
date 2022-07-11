@@ -1,31 +1,32 @@
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
+const axios = require('axios');
+let api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=blog-posts&sort_by=item.additionalFields.createdDate&sort_order=desc&size=250&item.locale=en_US&page=3"
 
-
-async function run(){
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto('https://aws.amazon.com/blogs');
-    let div_selector= "div.m-card-title"; 
-
-    let list_length    = await page.evaluate((sel) => {
-            let elements = Array.from(document.querySelectorAll(sel));
-            return elements.length;
-    }, div_selector);
-
-    for(let i=0; i< list_length; i++){
-        var href = await page.evaluate((l, sel) => {
-                    let elements= Array.from(document.querySelectorAll(sel));
-                    let anchor  = elements[l].getElementsByTagName('a')[0];
-                    if(anchor){
-                        return anchor.href;
-                    }else{
-                        return '';
-                    }
-                }, i, div_selector);
-        console.log('--------> ', href)
-    }
-    await browser.close();
+function getURLs() {
+    return axios.get(api).then((response) => {
+        data = response.data.items;
+        console.log(`RESPONSE:\n`);
+        let blogLists = [];
+        let count = 0;
+        data.forEach(blog => {
+            blogLists.push(blog["item"]["additionalFields"]["link"]);
+            // console.log(blog["item"]["additionalFields"]["link"]);
+            count = count + 1;
+        });
+        console.log("count = ", count)
+        console.log(blogLists)
+        return blogLists
+      })
+      .catch((error) =>console.error(error));
 }
-run();
+
+async function crawlImgs(){
+    let success = await getURLs()
+    if (success){
+        console.log("Crawling imgs completed");
+        console.log(success[4])
+    }
+    else
+        console.log("Unable to crawl imgs");
+} 
+
+crawlImgs();
