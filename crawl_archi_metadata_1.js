@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 
-let api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=blog-posts&sort_by=item.additionalFields.createdDate&sort_order=desc&size=250&item.locale=en_US&page=2"
+let api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=blog-posts&sort_by=item.additionalFields.createdDate&sort_order=desc&size=250&item.locale=en_US&page=1"
 
 function getURLs() {
     // Return a list of URLs
@@ -32,7 +32,7 @@ async function crawlImgs(){
     let URLs = await getURLs()
     success = URLs
     if (success){
-        console.log("Crawling imgs completed");
+        console.log("Crawling urls completed");
         console.log(success[4])
     }
     else
@@ -46,13 +46,14 @@ async function crawlImgs(){
         arch_img_list = []
         arcImg_and_metadata = []
 
-        for (let index = 0; index < URLs.length; index++) 
+        for (let index = 0; index < 20; index++) 
         {
             console.log("index: ", index)
-            const blogURL = URLs[index][0];
-            const dateUpdated = URLs[index][1];
+            let blogURL = URLs[index][0];
+            let dateUpdated = URLs[index][1];
             await page.goto(blogURL);
-        
+            // console.log("blogUrl:", blogURL);
+            // console.log("date:", dateUpdated);
             // Get img 
             const images = await page.evaluate(() => Array.from(document.images, e => e.src));
             filter1 = images.filter(img => img.includes("d2908q01vomqb2.cloudfront.net"))
@@ -67,18 +68,18 @@ async function crawlImgs(){
                 // Get articleSection (metadata)
                 articleSection = []
                 let metadata = await page.$$('span[property="articleSection"]')
-                for (let index = 0; index < metadata.length; index++) {
-                    const element = metadata[index];
+                for (let i = 0; i < metadata.length; i++) {
+                    const element = metadata[i];
                     let value = await element.evaluate(el => el.textContent, element)
                     console.log("value:");
                     console.log(value);      
                     articleSection.push(value);             
                 }
-                arcImg_and_metadata.push([blogUrl, dateUpdated, filter2, articleSection])
+                arcImg_and_metadata.push([URLs[index][0], URLs[index][1], filter2, articleSection])
             }
             
         }
-        fs.writeFileSync("./arcImg_and_metadata_3.json", JSON.stringify(arcImg_and_metadata));
+        fs.writeFileSync("./arcImg_and_metadata_5.json", JSON.stringify(arcImg_and_metadata));
         await browser.close();
     })();
 } 
