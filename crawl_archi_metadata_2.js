@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const { title } = require('process');
 
-let api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=solutions-master&sort_by=item.additionalFields.sortDate&sort_order=desc&size=10&item.locale=en_US"
+let api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=solutions-master&sort_by=item.additionalFields.sortDate&sort_order=desc&size=100&item.locale=en_US"
 
 function getURLs() {
     // Return a list of URLs
