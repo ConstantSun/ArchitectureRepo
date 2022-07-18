@@ -2,8 +2,9 @@ const axios = require('axios');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
+const { title } = require('process');
 
-let api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=blog-posts&sort_by=item.additionalFields.createdDate&sort_order=desc&size=250&item.locale=en_US&page=2"
+let api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=solutions-master&sort_by=item.additionalFields.sortDate&sort_order=desc&size=10&item.locale=en_US"
 
 function getURLs() {
     // Return a list of URLs
@@ -14,7 +15,8 @@ function getURLs() {
         let blogLists = [];
         let count = 0;
         data.forEach(blog => {
-            blogLists.push([blog["item"]["additionalFields"]["link"], blog["item"]["dateUpdated"]]);
+            blogLists.push([blog["item"]["additionalFields"]["headlineUrl"], blog["item"]["dateUpdated"]]);
+
             // console.log(blog["item"]["additionalFields"]["link"]);
             count = count + 1;
         });
@@ -55,30 +57,29 @@ async function crawlImgs(){
         
             // Get img 
             const images = await page.evaluate(() => Array.from(document.images, e => e.src));
-            filter1 = images.filter(img => img.includes("d2908q01vomqb2.cloudfront.net"))
-            filter2 = filter1.filter( function(img){
+            //filter1 = images.filter(img => img.includes("d2908q01vomqb2.cloudfront.net"))
+            filter2 = images.filter( function(img){
                 return img.includes("arc") || img.includes("rchitecture") || img.includes("diagram")
             }) ;
+            filter = Array.from(new Set(filter2));
 
             if (filter2.length > 0) 
             {
-                console.log(filter2);
-
-                // Get articleSection (metadata)
-                articleSection = []
-                let metadata = await page.$$('span[property="articleSection"]')
-                for (let index = 0; index < metadata.length; index++) {
-                    const element = metadata[index];
-                    let value = await element.evaluate(el => el.textContent, element)
-                    console.log("value:");
-                    console.log(value);      
-                    articleSection.push(value);             
-                }
-                arcImg_and_metadata.push([blogUrl, dateUpdated, filter2, articleSection])
+                //console.log(filter);
+                const metadata = await page.title();
+                //console.log(metadata)
+                //for (let index = 0; index < metadata.length; index++) {
+                    //const element = metadata[index];
+                    //let value = await element.evaluate(el => el.textContent, element)
+                    //console.log("value:");
+                    //console.log(value);      
+                    //articleSection.push(value);             
+                //}
+                arcImg_and_metadata.push([blogURL, dateUpdated, filter, metadata])
             }
             
         }
-        fs.writeFileSync("./arcImg_and_metadata_3.json", JSON.stringify(arcImg_and_metadata));
+        fs.writeFileSync("./arcImg_and_metadata_sollib_1.json", JSON.stringify(arcImg_and_metadata));
         await browser.close();
     })();
 } 
