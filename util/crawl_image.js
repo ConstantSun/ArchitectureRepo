@@ -3,7 +3,9 @@ const fs = require('fs');
 const path = require('path');
 
 (async () => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+	executablePath: '/usr/bin/chromium-browser'
+});
     const page = await browser.newPage();
     const url1 = 'https://aws.amazon.com/blogs/opensource/running-dicoogle-an-open-source-pacs-solution-on-aws-part-2/';
     const url2 = 'https://aws.amazon.com/blogs/big-data/how-william-hill-migrated-nosql-workloads-at-scale-to-amazon-keyspaces/';

@@ -12,29 +12,8 @@ AWS.config.update({region: 'ap-southeast-1'});
 var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
 
-let api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=solutions-master&sort_by=item.additionalFields.sortDate&sort_order=desc&size=100&item.locale=en_US"
-
-function getURLs() {
-    // Return a list of URLs
-
-    return axios.get(api).then((response) => {
-        data = response.data.items;
-        console.log(`RESPONSE:\n`);
-        let blogLists = [];
-        let count = 0;
-        data.forEach(blog => {
-            blogLists.push([blog["item"]["additionalFields"]["headlineUrl"], blog["item"]["dateUpdated"]]);
-
-            // console.log(blog["item"]["additionalFields"]["link"]);
-            count = count + 1;
-        });
-        console.log("blogLists length = ", blogLists.length)
-        // console.log(blogLists)
-        return blogLists
-      })
-      .catch((error) =>console.error(error));
-}
-
+// got 200 items for ddb
+let api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=alias%23architecture-center&sort_by=item.additionalFields.sortDate&sort_order=desc&size=311&item.locale=en_US&tags.id=GLOBAL%23content-type%23pattern"
 
 function getResFromRekog(img_url="https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/01/05/1.png") {
     // Get response from Rekognition API
@@ -68,6 +47,28 @@ function getResFromRekog(img_url="https://d2908q01vomqb2.cloudfront.net/fc074d50
     })
     .catch((error) =>console.error(error));
 } ;
+
+
+function getURLs() {
+    // Return a list of URLs
+
+    return axios.get(api).then((response) => {
+        data = response.data.items;
+        console.log(`RESPONSE:\n`);
+        let blogLists = [];
+        let count = 0;
+        data.forEach(blog => {
+            blogLists.push([blog["item"]["additionalFields"]["headlineUrl"], blog["item"]["dateUpdated"]]);
+
+            // console.log(blog["item"]["additionalFields"]["link"]);
+            count = count + 1;
+        });
+        console.log("blogLists length = ", blogLists.length)
+        // console.log(blogLists)
+        return blogLists
+      })
+      .catch((error) =>console.error(error));
+}
 
 
 function put2Dynamo(originUrl, publishDate, arch_img_url, crawler_data, rekog_data)
@@ -120,19 +121,25 @@ async function crawlImgs(){
 
     let URLs = await getURLs()
     success = URLs
-    if (success) 
-        console.log("Crawling urls completed")
+    if (success){
+        console.log("Crawling imgs completed");
+        console.log(success[4])
+    }
     else
-        console.log("Unable to crawl imgs url");
+        console.log("Unable to crawl imgs");
     
+
     (async () => {
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({
+            executablePath: '/usr/bin/chromium-browser'
+          });
         const page = await browser.newPage();
 
         arch_img_list = []
         arcImg_and_metadata = []
 
-        for (let index = 0; index < 10; index++) 
+        var count_img = 0 
+        for (let index = 0; index < URLs.length; index++) 
         {
             console.log("index: ", index)
             const blogURL = URLs[index][0];
@@ -141,26 +148,27 @@ async function crawlImgs(){
         
             // Get img 
             const images = await page.evaluate(() => Array.from(document.images, e => e.src));
-            filter2 = images.filter( function(img){
-                return img.includes("arc") || img.includes("rchitecture") || img.includes("diagram")
-            }) ;
-            filter = Array.from(new Set(filter2));
+            filter1 = images.filter(img => img.includes("patterns"))
 
-            if (filter2.length > 0) 
+            // Get metadata
+            if (images.length > 0) 
             {
-                //console.log(filter);
-                const metadata = await page.title();
-                arcImg_and_metadata.push([blogURL, dateUpdated, filter, metadata])
-                console.log("accepted: ", arcImg_and_metadata.length);
-
-                const Rekog = await getResFromRekog(filter2[0])
-                if(Rekog !== undefined){
-                    put2Dynamo(blogURL, dateUpdated, filter2[0], metadata, Rekog)
-                }
+                const result = await page.evaluate(() => {
+                    const table = document.querySelector('table tbody');
+                    const columns = table.querySelectorAll('tr td');
+                    return Array.from(columns, column => column.innerText);
+                    
+                });
+                arcImg_and_metadata.push([blogURL, dateUpdated, filter1, result])
+                if (filter1.length > 1)
+                    count_img = count_img + 1
+                console.log("count = ", count_img)
+                console.log(arcImg_and_metadata[arcImg_and_metadata.length - 1])
             }
         }
-        console.log("length: ", arcImg_and_metadata.length);
-        fs.writeFileSync("./arcImg_and_metadata_sollib_4.json", JSON.stringify(arcImg_and_metadata));
+        
+        console.log("there are ", count_img, " / ", URLs.length)
+        fs.writeFileSync("./crawler_res/arcImg_and_metadata_pattern_1.json", JSON.stringify(arcImg_and_metadata));
         await browser.close();
     })();
 } 

@@ -2,9 +2,9 @@ const axios = require('axios');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
+const shared_funcs = require('./shared_funcs');
 
-let api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=blog-posts&sort_by=item.additionalFields.createdDate&sort_order=desc&size=250&item.locale=en_US&page=1"
-
+const api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=blog-posts&sort_by=item.additionalFields.createdDate&sort_order=desc&size=250&item.locale=en_US&page=1"
 function getURLs() {
     // Return a list of URLs
 
@@ -29,18 +29,20 @@ async function crawlImgs(){
     // Get a list of URLs
     // Extract arch img from those URLs
 
-    let URLs = await getURLs()
+    let URLs = await getURLs(api);
     success = URLs
     if (success){
         console.log("Crawling urls completed");
-        console.log(success[4])
+        console.log(success)
     }
     else
         console.log("Unable to crawl imgs");
     
 
     (async () => {
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({
+            executablePath: '/usr/bin/chromium-browser'
+          });
         const page = await browser.newPage();
 
         arch_img_list = []
@@ -51,6 +53,7 @@ async function crawlImgs(){
             console.log("index: ", index)
             let blogURL = URLs[index][0];
             let dateUpdated = URLs[index][1];
+            console.log("page = ", blogURL)
             await page.goto(blogURL);
             // console.log("blogUrl:", blogURL);
             // console.log("date:", dateUpdated);

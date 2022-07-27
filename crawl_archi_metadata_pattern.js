@@ -3,9 +3,17 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 const { title } = require('process');
+var AWS = require('aws-sdk');
+const shared_funcs = require('./shared_funcs');
 
-let api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=alias%23architecture-center&sort_by=item.additionalFields.sortDate&sort_order=desc&size=250&item.locale=en_US&tags.id=GLOBAL%23content-type%23pattern"
+// Set the region 
+AWS.config.update({region: 'ap-southeast-1'});
 
+// Create the DynamoDB service object
+var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+
+
+let api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=alias%23architecture-center&sort_by=item.additionalFields.sortDate&sort_order=desc&size=311&item.locale=en_US&tags.id=GLOBAL%23content-type%23pattern"
 function getURLs() {
     // Return a list of URLs
 
@@ -27,6 +35,7 @@ function getURLs() {
       .catch((error) =>console.error(error));
 }
 
+
 async function crawlImgs(){
     // Get a list of URLs
     // Extract arch img from those URLs
@@ -42,7 +51,9 @@ async function crawlImgs(){
     
 
     (async () => {
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({
+            executablePath: '/usr/bin/chromium-browser'
+          });
         const page = await browser.newPage();
 
         arch_img_list = []
@@ -69,10 +80,25 @@ async function crawlImgs(){
                     
                 });
                 arcImg_and_metadata.push([blogURL, dateUpdated, filter1, result])
+                let crawler_data = ""
+                let service_refs = ""
+                let service_list = []
+                console.log("result: ", result)
+                result.forEach(element => {
+                    crawler_data = crawler_data + element.substring(element.indexOf(":")+1) + " ; "
+                    if (element.substring(0,12) == "AWS services") {
+                        let tem = element.substring(element.indexOf(":")+1)
+                        service_list = tem.split(";")
+                    }
+                });
+                console.log("crawler_data: ", crawler_data)
+                console.log("service list: ", service_list)
+                break
+                shared_funcs.put2DynamoWithoutRekog(blogURL, dateUpdated, filter1[0], result)
             }
             
         }
-        fs.writeFileSync("./arcImg_and_metadata_pattern_1.json", JSON.stringify(arcImg_and_metadata));
+        fs.writeFileSync("./crawler_res/arcImg_and_metadata_pattern_1.json", JSON.stringify(arcImg_and_metadata));
         await browser.close();
     })();
 } 
