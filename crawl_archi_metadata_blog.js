@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const shared_funcs = require('./shared_funcs');
 
-const api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=blog-posts&sort_by=item.additionalFields.createdDate&sort_order=desc&size=250&item.locale=en_US&page=1"
+const api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=blog-posts&sort_by=item.additionalFields.createdDate&sort_order=desc&size=2000&item.locale=en_US&page=1"
 function getURLs() {
     // Return a list of URLs
 
@@ -15,7 +15,6 @@ function getURLs() {
         let count = 0;
         data.forEach(blog => {
             blogLists.push([blog["item"]["additionalFields"]["link"], blog["item"]["dateUpdated"]]);
-            // console.log(blog["item"]["additionalFields"]["link"]);
             count = count + 1;
         });
         console.log("blogLists length = ", blogLists.length)
@@ -31,12 +30,8 @@ async function crawlImgs(){
 
     let URLs = await getURLs(api);
     success = URLs
-    if (success){
-        console.log("Crawling urls completed");
-        console.log(success)
-    }
-    else
-        console.log("Unable to crawl imgs");
+    if (success) console.log("Crawling urls completed");
+    else console.log("Unable to crawl imgs");
     
 
     (async () => {
@@ -47,8 +42,9 @@ async function crawlImgs(){
 
         arch_img_list = []
         arcImg_and_metadata = []
+        num_of_valid_arch_urls = 0
 
-        for (let index = 0; index < 20; index++) 
+        for (let index = 0; index < URLs.length; index++) 
         {
             console.log("index: ", index)
             let blogURL = URLs[index][0];
@@ -78,11 +74,36 @@ async function crawlImgs(){
                     console.log(value);      
                     articleSection.push(value);             
                 }
-                arcImg_and_metadata.push([URLs[index][0], URLs[index][1], filter2, articleSection])
+
+                const Rekog = await shared_funcs.getResFromRekog(filter2[0])
+                if ( Rekog!= undefined){
+                    console.log("Rekog res:")
+                    console.log(Rekog)
+                    text_services = Rekog.textServices
+                    text_services = text_services.split(",")
+                    console.log(text_services)
+                    all_ref_links = ""
+
+                    if (text_services.length>=2 )  {
+                        for (let index = 0; index < text_services.length; index++) {
+                            const element = text_services[index];
+                            let ref_link = await shared_funcs.getRef(element)
+                            all_ref_links = all_ref_links + "," + element + " : " + ref_link                        
+                        }
+        
+                        console.log(all_ref_links)
+
+                        num_of_valid_arch_urls = num_of_valid_arch_urls + 1
+                        shared_funcs.put2Dynamo(URLs[index][0], URLs[index][1], filter2[0], articleSection.toString(), Rekog, all_ref_links)
+                    }
+                }
+                if (num_of_valid_arch_urls == 500)
+                    break
             }
-            
         }
-        fs.writeFileSync("./arcImg_and_metadata_5.json", JSON.stringify(arcImg_and_metadata));
+        num_valid_res_blog = {"valid arch": num_of_valid_arch_urls}
+        console.log("valid arch : ", num_of_valid_arch_urls)
+        fs.writeFileSync("./crawblog.json", JSON.stringify(num_valid_res_blog));
         await browser.close();
     })();
 } 

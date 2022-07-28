@@ -71,7 +71,7 @@ async function crawlImgs(){
             filter1 = images.filter(img => img.includes("patterns"))
 
             // Get metadata
-            if (images.length > 0) 
+            if (images.length > 0 && filter1.length == 1) 
             {
                 const result = await page.evaluate(() => {
                     const table = document.querySelector('table tbody');
@@ -80,6 +80,7 @@ async function crawlImgs(){
                     
                 });
                 arcImg_and_metadata.push([blogURL, dateUpdated, filter1, result])
+
                 let crawler_data = ""
                 let service_refs = ""
                 let service_list = []
@@ -93,8 +94,15 @@ async function crawlImgs(){
                 });
                 console.log("crawler_data: ", crawler_data)
                 console.log("service list: ", service_list)
-                break
-                shared_funcs.put2DynamoWithoutRekog(blogURL, dateUpdated, filter1[0], result)
+                all_ref_links = ""
+                for (let index = 0; index < service_list.length; index++) {
+                    const element = service_list[index];
+                    let ref_link = await shared_funcs.getRef(element)
+                    all_ref_links = all_ref_links + "," + element + " : " + ref_link                        
+                }
+                console.log("ref: ", all_ref_links)
+                
+                shared_funcs.put2DynamoWithoutRekog(blogURL, dateUpdated, filter1[0], crawler_data, all_ref_links)
             }
             
         }

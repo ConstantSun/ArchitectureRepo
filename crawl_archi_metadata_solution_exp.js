@@ -156,11 +156,11 @@ async function crawlImgs(){
                 console.log("arch img: ", filter3)
                 console.log("metadata: ", metadata)
 
-                // // Rekog and upload to DDB
-                // const Rekog = await getResFromRekog(filter2[0])
-                // if(Rekog !== undefined){
-                //     put2Dynamo(blogURL, dateUpdated, filter2[0], metadata, Rekog)
-                // }
+                // Rekog and upload to DDB
+                const Rekog = await getResFromRekog(filter2[0])
+                if(Rekog !== undefined){
+                    put2Dynamo(blogURL, dateUpdated, filter2[0], metadata, Rekog)
+                }
             }
         }
         console.log("length: ", arcImg_and_metadata.length);

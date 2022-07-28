@@ -37,7 +37,6 @@ module.exports = {
         })
         Rekog_text_services.delete("AWS")
         Rekog_text_services.delete("Amazon")
-        console.log("Hi beeeee")
         return {"labels":Array.from(Rekog_labels).join(', '),
                 "textServices": Array.from(Rekog_text_services).join(', '), 
                 "textMetadata":Array.from( Rekog_text_metadata).join(', ')}

@@ -79,22 +79,26 @@ async function crawlImgs(){
                 const Rekog = await shared_funcs.getResFromRekog(filter2[0])
                 console.log("Rekog res:")
                 console.log(Rekog)
-                text_services = Rekog.textServices
-                text_services = text_services.split(",")
-                console.log(text_services)
-                all_ref_links = ""
-                for (let index = 0; index < text_services.length; index++) {
-                    const element = text_services[index];
-                    let ref_link = await shared_funcs.getRef(element)
-                    all_ref_links = all_ref_links + "," + element + " : " + ref_link                        
-                }
-                if(Rekog !== undefined){
-                    shared_funcs.put2Dynamo(blogURL, dateUpdated, filter2[0], metadata, Rekog, all_ref_links)
+                if (Rekog!= undefined){
+                    text_services = Rekog.textServices
+                    text_services = text_services.split(",")
+                    console.log(text_services)
+                    all_ref_links = ""
+                    if (text_services.length>=2 )  {
+                        for (let index = 0; index < text_services.length; index++) {
+                            const element = text_services[index];
+                            let ref_link = await shared_funcs.getRef(element)
+                            all_ref_links = all_ref_links + "," + element + " : " + ref_link                        
+                        }
+                        if(Rekog !== undefined){
+                            shared_funcs.put2Dynamo(blogURL, dateUpdated, filter2[0], metadata, Rekog, all_ref_links)
+                        }
+                    }
                 }
             }
         }
         console.log("length: ", arcImg_and_metadata.length);
-        fs.writeFileSync("./arcImg_and_metadata_sollib_4.json", JSON.stringify(arcImg_and_metadata));
+        fs.writeFileSync("./arcImg_and_metadata_sol_master.json", JSON.stringify(arcImg_and_metadata));
         await browser.close();
     })();
 } 
