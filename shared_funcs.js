@@ -65,7 +65,7 @@ module.exports = {
     //     .catch((error) =>console.error(error));
     // },
 
-    put2Dynamo: function(originUrl, publishDate, arch_img_url, crawler_data, rekog_data, ref_links, table = 'test'){
+    put2Dynamo: function(originUrl, publishDate, arch_img_url, crawler_data, rekog_data, ref_links,title, table = 'test'){
         var write_params = {
             TableName: table,
             Item: {
@@ -96,6 +96,9 @@ module.exports = {
                 },
                 'Reference': {
                     S : ref_links
+                },
+                'Title':{
+                    S : title
                 }
             }
         };
@@ -111,7 +114,7 @@ module.exports = {
     },
 
 
-    put2DynamoWithoutRekog: function(originUrl, publishDate, arch_img_url, crawler_data, ref_links, table = 'test'){
+    put2DynamoWithoutRekog: function(originUrl, publishDate, arch_img_url, crawler_data, ref_links, title, table = 'test'){
         var write_params = {
             TableName: table,
             Item: {
@@ -129,6 +132,9 @@ module.exports = {
                 },
                 'Reference': {
                     S : ref_links
+                },
+                'Title':{
+                    S : title
                 }
             }
         };

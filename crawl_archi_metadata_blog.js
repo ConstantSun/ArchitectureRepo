@@ -3,6 +3,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 const shared_funcs = require('./shared_funcs');
+const { title } = require('process');
 
 const api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=blog-posts&sort_by=item.additionalFields.createdDate&sort_order=desc&size=2000&item.locale=en_US&page=1"
 function getURLs() {
@@ -74,7 +75,7 @@ async function crawlImgs(){
                     console.log(value);      
                     articleSection.push(value);             
                 }
-
+                const title = await page.title();
                 const Rekog = await shared_funcs.getResFromRekog(filter2[0])
                 if ( Rekog!= undefined){
                     console.log("Rekog res:")
@@ -87,6 +88,7 @@ async function crawlImgs(){
                     if (text_services.length>=2 )  {
                         for (let index = 0; index < text_services.length; index++) {
                             const element = text_services[index];
+                            
                             let ref_link = await shared_funcs.getRef(element)
                             all_ref_links = all_ref_links + "," + element + " : " + ref_link                        
                         }
@@ -94,7 +96,7 @@ async function crawlImgs(){
                         console.log(all_ref_links)
 
                         num_of_valid_arch_urls = num_of_valid_arch_urls + 1
-                        shared_funcs.put2Dynamo(URLs[index][0], URLs[index][1], filter2[0], articleSection.toString(), Rekog, all_ref_links)
+                        shared_funcs.put2Dynamo(URLs[index][0], URLs[index][1], filter2[0], articleSection.toString(), Rekog, all_ref_links, title)
                     }
                 }
                 if (num_of_valid_arch_urls == 500)
