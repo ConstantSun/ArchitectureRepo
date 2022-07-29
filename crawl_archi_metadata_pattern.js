@@ -59,7 +59,7 @@ async function crawlImgs(){
         arch_img_list = []
         arcImg_and_metadata = []
 
-        for (let index = 0; index < URLs.length; index++) 
+        for (let index = 0; index < 13; index++) 
         {
             console.log("index: ", index)
             const blogURL = URLs[index][0];

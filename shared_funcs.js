@@ -111,12 +111,12 @@ module.exports = {
     },
 
 
-    put2DynamoWithoutRekog: function(originUrl, publishDate, arch_img_url, crawler_data, ref_links, table = 'test'){
+    put2DynamoWithoutRekog: function(originUrl, publishDate, arch_img_url, crawler_data, ref_links, table = 'AllieDiagrams'){
         var write_params = {
             TableName: table,
             Item: {
                 'OriginURL': {S:originUrl  },
-                'PublishDate': {S: publishDate},
+                'PublishDate': {S: this.formatDate(publishDate)},
                 'ArchitectureURL': {
                     S: arch_img_url
                 },
@@ -165,7 +165,10 @@ module.exports = {
         }).catch(function(error) {
             console.log(error)
         })
-    }
+    },
 
+    formatDate: function(date){
+        return date.replace("+0000", "+00:00")
+    }
    
 }
