@@ -70,6 +70,9 @@ async function crawlImgs(){
             const images = await page.evaluate(() => Array.from(document.images, e => e.src));
             filter1 = images.filter(img => img.includes("patterns"))
 
+            // Get title
+            const title = await page.title();
+
             // Get metadata
             if (images.length > 0 && filter1.length == 1) 
             {
@@ -102,7 +105,7 @@ async function crawlImgs(){
                 }
                 console.log("ref: ", all_ref_links)
                 
-                shared_funcs.put2DynamoWithoutRekog(blogURL, dateUpdated, filter1[0], crawler_data, all_ref_links)
+                shared_funcs.put2DynamoWithoutRekog(blogURL, dateUpdated, filter1[0], crawler_data, all_ref_links, title)
             }
             
         }

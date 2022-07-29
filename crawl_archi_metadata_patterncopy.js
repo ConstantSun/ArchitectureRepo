@@ -71,7 +71,7 @@ function getURLs() {
 }
 
 
-function put2Dynamo(originUrl, publishDate, arch_img_url, crawler_data, rekog_data)
+function put2Dynamo(originUrl, publishDate, arch_img_url, crawler_data, rekog_data, title)
 {
     var write_params = {
         TableName: 'AllieDiagrams',
@@ -100,6 +100,9 @@ function put2Dynamo(originUrl, publishDate, arch_img_url, crawler_data, rekog_da
                         }
                     }
                 }
+            },
+            'Title' :{
+                S: title
             }
         }
     };
@@ -149,6 +152,9 @@ async function crawlImgs(){
             // Get img 
             const images = await page.evaluate(() => Array.from(document.images, e => e.src));
             filter1 = images.filter(img => img.includes("patterns"))
+
+            // Get title
+            const title = await page.title();
 
             // Get metadata
             if (images.length > 0) 

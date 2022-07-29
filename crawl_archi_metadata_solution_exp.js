@@ -22,7 +22,7 @@ function getURLs() {
         let blogLists = [];
         let count = 0;
         data.forEach(blog => {
-            blogLists.push([blog["item"]["additionalFields"]["headlineUrl"], blog["item"]["dateUpdated"]]);
+            blogLists.push([blog["item"]["additionalFields"]["headlineUrl"], blog["item"]["dateUpdated"], blog["item"]["additionalFields"]["techCategory"]]);
 
             // console.log(blog["item"]["additionalFields"]["link"]);
             count = count + 1;
@@ -69,7 +69,7 @@ function getResFromRekog(img_url="https://d2908q01vomqb2.cloudfront.net/fc074d50
 } ;
 
 
-function put2Dynamo(originUrl, publishDate, arch_img_url, crawler_data, rekog_data)
+function put2Dynamo(originUrl, publishDate, arch_img_url, crawler_data, rekog_data, title)
 {
     var write_params = {
         TableName: 'AllieDiagrams',
@@ -98,6 +98,9 @@ function put2Dynamo(originUrl, publishDate, arch_img_url, crawler_data, rekog_da
                         }
                     }
                 }
+            },
+            'Title' :{
+                S: title
             }
         }
     };
@@ -126,7 +129,7 @@ async function crawlImgs(){
     
     (async () => {
         const browser = await  puppeteer.launch({
-            executablePath: '/usr/bin/chromium-browser'
+            //executablePath: '/usr/bin/chromium-browser'
           });
         const page = await browser.newPage();
 
@@ -138,6 +141,7 @@ async function crawlImgs(){
             console.log("index: ", index)
             const blogURL = URLs[index][0];
             const dateUpdated = URLs[index][1];
+            const metadata = URLs[index][2];
             await page.goto(blogURL);
         
             // Get img 
@@ -150,8 +154,9 @@ async function crawlImgs(){
             if (filter2.length > 0) 
             {
                 //console.log(filter3);
-                const metadata = await page.title();
-                arcImg_and_metadata.push([blogURL, dateUpdated, filter3, metadata])
+                //const metadata = await page.query();
+                const title = await page.title()
+                arcImg_and_metadata.push([blogURL, dateUpdated, filter3, metadata, title])
                 console.log("-----\naccepted: ", arcImg_and_metadata.length);
                 console.log("arch img: ", filter3)
                 console.log("metadata: ", metadata)
@@ -159,7 +164,7 @@ async function crawlImgs(){
                 // Rekog and upload to DDB
                 const Rekog = await getResFromRekog(filter2[0])
                 if(Rekog !== undefined){
-                    put2Dynamo(blogURL, dateUpdated, filter2[0], metadata, Rekog)
+                    put2Dynamo(blogURL, dateUpdated, filter2[0], metadata, Rekog, title)
                 }
             }
         }

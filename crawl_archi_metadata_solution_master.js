@@ -24,7 +24,7 @@ function getURLs() {
         let blogLists = [];
         let count = 0;
         data.forEach(blog => {
-            blogLists.push([blog["item"]["additionalFields"]["headlineUrl"], blog["item"]["dateUpdated"]]);
+            blogLists.push([blog["item"]["additionalFields"]["headlineUrl"], blog["item"]["dateUpdated"], blog["item"]["additionalFields"]["techCategory"]]);
             count = count + 1;
         });
         console.log("blogLists length = ", blogLists.length)
@@ -60,6 +60,7 @@ async function crawlImgs(){
             console.log("index: ", index)
             const blogURL = URLs[index][0];
             const dateUpdated = URLs[index][1];
+            const metadata = URLs[index][2];
             await page.goto(blogURL);
         
             // Get img 
@@ -72,8 +73,8 @@ async function crawlImgs(){
             if (filter2.length > 0) 
             {
                 //console.log(filter);
-                const metadata = await page.title();
-                arcImg_and_metadata.push([blogURL, dateUpdated, filter, metadata])
+                const title = await page.title();
+                arcImg_and_metadata.push([blogURL, dateUpdated, filter, metadata, title])
                 console.log("accepted: ", arcImg_and_metadata.length);
 
                 const Rekog = await shared_funcs.getResFromRekog(filter2[0])
@@ -91,7 +92,7 @@ async function crawlImgs(){
                             all_ref_links = all_ref_links + "," + element + " : " + ref_link                        
                         }
                         if(Rekog !== undefined){
-                            shared_funcs.put2Dynamo(blogURL, dateUpdated, filter2[0], metadata, Rekog, all_ref_links)
+                            shared_funcs.put2Dynamo(blogURL, dateUpdated, filter2[0], metadata, Rekog, all_ref_links, title)
                         }
                     }
                 }
