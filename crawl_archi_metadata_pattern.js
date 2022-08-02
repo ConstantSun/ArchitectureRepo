@@ -1,16 +1,8 @@
-const axios = require('axios');
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
-const { title } = require('process');
-var AWS = require('aws-sdk');
-const shared_funcs = require('./shared_funcs');
+import axios from 'axios';
+import puppeteer  from 'puppeteer';
+import fs from 'fs';
+import { put2DynamoWithoutRekog, getRef } from "./shared_funcs.js";
 
-// Set the region 
-AWS.config.update({region: 'ap-southeast-1'});
-
-// Create the DynamoDB service object
-var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
 
 let api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=alias%23architecture-center&sort_by=item.additionalFields.sortDate&sort_order=desc&size=311&item.locale=en_US&tags.id=GLOBAL%23content-type%23pattern"
@@ -18,7 +10,7 @@ function getURLs() {
     // Return a list of URLs
 
     return axios.get(api).then((response) => {
-        data = response.data.items;
+        var data = response.data.items;
         console.log(`RESPONSE:\n`);
         let blogLists = [];
         let count = 0;
@@ -41,7 +33,7 @@ async function crawlImgs(){
     // Extract arch img from those URLs
 
     let URLs = await getURLs()
-    success = URLs
+    let success = URLs
     if (success){
         console.log("Crawling imgs completed");
         console.log(success[4])
@@ -56,10 +48,10 @@ async function crawlImgs(){
           });
         const page = await browser.newPage();
 
-        arch_img_list = []
-        arcImg_and_metadata = []
+        var arch_img_list = []
+        var arcImg_and_metadata = []
 
-        for (let index = 0; index < 13; index++) 
+        for (let index = 0; index < URLs.length; index++) 
         {
             console.log("index: ", index)
             const blogURL = URLs[index][0];
@@ -68,7 +60,7 @@ async function crawlImgs(){
         
             // Get img 
             const images = await page.evaluate(() => Array.from(document.images, e => e.src));
-            filter1 = images.filter(img => img.includes("patterns"))
+            var filter1 = images.filter(img => img.includes("patterns"))
 
             // Get title
             const title = await page.title();
@@ -97,15 +89,24 @@ async function crawlImgs(){
                 });
                 console.log("crawler_data: ", crawler_data)
                 console.log("service list: ", service_list)
-                all_ref_links = ""
+                var all_ref_links = []
                 for (let index = 0; index < service_list.length; index++) {
                     const element = service_list[index];
-                    let ref_link = await shared_funcs.getRef(element)
-                    all_ref_links = all_ref_links + "," + element + " : " + ref_link                        
+                    let ref_link = await getRef(element) 
+                    all_ref_links.push({
+                        M: {
+                            "service":{
+                                S: element
+                            },
+                            "link":{
+                                S: ref_link
+                            }  
+                        }
+                    })                     
                 }
                 console.log("ref: ", all_ref_links)
                 
-                shared_funcs.put2DynamoWithoutRekog(blogURL, dateUpdated, filter1[0], crawler_data, all_ref_links, title)
+                put2DynamoWithoutRekog(blogURL, dateUpdated, filter1[0], crawler_data, {L: all_ref_links}, title)
             }
             
         }
@@ -115,3 +116,4 @@ async function crawlImgs(){
 } 
 
 crawlImgs();
+

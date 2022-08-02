@@ -1,16 +1,15 @@
-const axios = require('axios');
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
-const shared_funcs = require('./shared_funcs');
-const { title } = require('process');
+import axios from 'axios';
+import puppeteer  from 'puppeteer';
+import fs from 'fs';
+import { put2Dynamo, getResFromRekog, getRef, getRefList } from "./shared_funcs.js";
+
 
 const api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=blog-posts&sort_by=item.additionalFields.createdDate&sort_order=desc&size=2000&item.locale=en_US&page=1"
 function getURLs() {
     // Return a list of URLs
 
     return axios.get(api).then((response) => {
-        data = response.data.items;
+        var data = response.data.items;
         console.log(`RESPONSE:\n`);
         let blogLists = [];
         let count = 0;
@@ -30,7 +29,7 @@ async function crawlImgs(){
     // Extract arch img from those URLs
 
     let URLs = await getURLs(api);
-    success = URLs
+    var success = URLs
     if (success) console.log("Crawling urls completed");
     else console.log("Unable to crawl imgs");
     
@@ -41,9 +40,9 @@ async function crawlImgs(){
           });
         const page = await browser.newPage();
 
-        arch_img_list = []
-        arcImg_and_metadata = []
-        num_of_valid_arch_urls = 0
+        var  arch_img_list = []
+        var arcImg_and_metadata = []
+        var num_of_valid_arch_urls = 0
 
         for (let index = 0; index < URLs.length; index++) 
         {
@@ -56,8 +55,8 @@ async function crawlImgs(){
             // console.log("date:", dateUpdated);
             // Get img 
             const images = await page.evaluate(() => Array.from(document.images, e => e.src));
-            filter1 = images.filter(img => img.includes("d2908q01vomqb2.cloudfront.net"))
-            filter2 = filter1.filter( function(img){
+            var filter1 = images.filter(img => img.includes("d2908q01vomqb2.cloudfront.net"))
+            var filter2 = filter1.filter( function(img){
                 return img.includes("arc") || img.includes("rchitecture") || img.includes("diagram")
             }) ;
 
@@ -66,7 +65,7 @@ async function crawlImgs(){
                 console.log(filter2);
 
                 // Get articleSection (metadata)
-                articleSection = []
+                var articleSection = []
                 let metadata = await page.$$('span[property="articleSection"]')
                 for (let i = 0; i < metadata.length; i++) {
                     const element = metadata[i];
@@ -76,27 +75,14 @@ async function crawlImgs(){
                     articleSection.push(value);             
                 }
                 const title = await page.title();
-                const Rekog = await shared_funcs.getResFromRekog(filter2[0])
+                const Rekog = await getResFromRekog(filter2[0])
                 if ( Rekog!= undefined){
-                    console.log("Rekog res:")
-                    console.log(Rekog)
-                    text_services = Rekog.textServices
-                    text_services = text_services.split(",")
-                    console.log(text_services)
-                    all_ref_links = ""
-
-                    if (text_services.length>=2 )  {
-                        for (let index = 0; index < text_services.length; index++) {
-                            const element = text_services[index];
-                            
-                            let ref_link = await shared_funcs.getRef(element)
-                            all_ref_links = all_ref_links + "," + element + " : " + ref_link                        
-                        }
-        
-                        console.log(all_ref_links)
-
+                    const all_ref_links = await getRefList(Rekog.labels, Rekog.textServices)
+                    if(all_ref_links.length >= 2){
+                        console.log("all ref links: \n", all_ref_links)
+                     
                         num_of_valid_arch_urls = num_of_valid_arch_urls + 1
-                        shared_funcs.put2Dynamo(URLs[index][0], URLs[index][1], filter2[0], articleSection.toString(), Rekog, all_ref_links, title)
+                        put2Dynamo(URLs[index][0], URLs[index][1], filter2[0], articleSection.toString(), Rekog, {L: all_ref_links}, title, "test")
                     }
                 }
                 if (num_of_valid_arch_urls == 500)

@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const { title } = require('process');
 var AWS = require('aws-sdk');
+const shared_funcs = require('./shared_funcs');
 
 // Set the region 
 AWS.config.update({region: 'ap-southeast-1'});
@@ -12,11 +13,11 @@ AWS.config.update({region: 'ap-southeast-1'});
 var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
 
-let api =  "https://aws.amazon.com/api/dirs/items/search?item.directoryId=alias%23solutions-experience&sort_by=item.additionalFields.headline&sort_order=asc&size=30&item.locale=en_US&tags.id=!GLOBAL%23flag%23archived&tags.id=!GLOBAL%23year%232016&page=1"
-function getURLs() {
+const api =  "https://aws.amazon.com/api/dirs/items/search?item.directoryId=alias%23solutions-experience&sort_by=item.additionalFields.headline&sort_order=asc&size=30&item.locale=en_US&tags.id=!GLOBAL%23flag%23archived&tags.id=!GLOBAL%23year%232016&page="
+function getURLs(current_api) {
     // Return a list of URLs
 
-    return axios.get(api).then((response) => {
+    return axios.get(current_api).then((response) => {
         data = response.data.items;
         console.log(`RESPONSE:\n`);
         let blogLists = [];
@@ -35,92 +36,12 @@ function getURLs() {
 }
 
 
-function getResFromRekog(img_url="https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/01/05/1.png") {
-    // Get response from Rekognition API
-    // Param: arch img url
 
-    return axios.post('https://6pm97xomk2.execute-api.ap-southeast-1.amazonaws.com/dev/api/url-label', {
-        "url": img_url
-    }).then((res)=> {
-        let data = res.data;
-        Rekog_labels = new Set()
-        Rekog_text_services = new Set()
-        Rekog_text_metadata = new Set()
-        data.labels.forEach(element => {
-            Rekog_labels.add(element.Name)
-        });
-        data.text.forEach(element=>{
-            if (element.DetectedText.includes("AWS") || element.DetectedText.includes("Amazon")) {
-                Rekog_text_services.add(element.DetectedText)
-            }
-            else{
-                Rekog_text_metadata.add(element.DetectedText)
-            }
-        })
-        Rekog_text_services.delete("AWS")
-        Rekog_text_services.delete("Amazon")
-    
-        return {"labels":Array.from(Rekog_labels).join(', '),
-                "textServices": Array.from(Rekog_text_services).join(', '), 
-                "textMetadata":Array.from( Rekog_text_metadata).join(', ')}
-
-    })
-    .catch((error) =>console.error(error));
-} ;
-
-
-function put2Dynamo(originUrl, publishDate, arch_img_url, crawler_data, rekog_data, title)
-{
-    var write_params = {
-        TableName: 'AllieDiagrams',
-        Item: {
-            'OriginURL': {S:originUrl  },
-            'PublishDate': {S: publishDate},
-            'ArchitectureURL': {
-                S: arch_img_url
-            },
-            'Metadata' :{
-                M: {
-                    'crawler' : {
-                        S: crawler_data
-                    },
-                    'Rekognition': {
-                        M:{
-                            "labels": {
-                                S: rekog_data.labels
-                            },
-                            "textServices": {
-                                S: rekog_data.textServices
-                            },
-                            "textMetadata": {
-                                S: rekog_data.textMetadata
-                            }
-                        }
-                    }
-                }
-            },
-            'Title' :{
-                S: title
-            }
-        }
-    };
-      
-    
-    // Call DynamoDB to add the item to the table
-    ddb.putItem(write_params, function(err, data) {
-    if (err) {
-        console.log("Error", err);
-    } else {
-        console.log("Success", data);
-    }
-    });    
-}
-
-async function crawlImgs(){
+async function crawlImgs(current_api){
     // Get a list of URLs
     // Extract arch img from those URLs
 
-    let URLs = await getURLs()
+    let URLs = await getURLs(current_api)
     success = URLs
     if (success) 
         console.log("Crawling urls completed")
@@ -129,7 +50,7 @@ async function crawlImgs(){
     
     (async () => {
         const browser = await  puppeteer.launch({
-            //executablePath: '/usr/bin/chromium-browser'
+            executablePath: '/usr/bin/chromium-browser'
           });
         const page = await browser.newPage();
 
@@ -151,9 +72,9 @@ async function crawlImgs(){
             }) ;
             filter3 = Array.from(new Set(filter2));
 
-            if (filter2.length > 0) 
+            if (filter2.length > 0 && filter3.length == 1 ) 
             {
-                //console.log(filter3);
+                console.log("filter3: ", filter3);
                 //const metadata = await page.query();
                 const title = await page.title()
                 arcImg_and_metadata.push([blogURL, dateUpdated, filter3, metadata, title])
@@ -162,9 +83,28 @@ async function crawlImgs(){
                 console.log("metadata: ", metadata)
 
                 // Rekog and upload to DDB
-                const Rekog = await getResFromRekog(filter2[0])
-                if(Rekog !== undefined){
-                    put2Dynamo(blogURL, dateUpdated, filter2[0], metadata, Rekog, title)
+                const Rekog = await shared_funcs.getResFromRekog(filter3[0])
+
+                if (Rekog!= undefined){
+                    let text_services = Rekog.textServices
+                    text_services = text_services.split(",")
+                    console.log(text_services)
+                    all_ref_links = ""
+                    if (text_services.length>=2 )  {
+                        for (let index = 0; index < text_services.length; index++) {
+                            const element = text_services[index];
+                            let ref_link = await shared_funcs.getRef(element)
+                            all_ref_links = all_ref_links + "," + element + " : " + ref_link                        
+                        }
+                        if(Rekog !== undefined){
+                            // console.log("** put to ddb")
+                            // console.log("datePub: ", dateUpdated)
+                            // console.log("metadata: ", metadata)
+                            // console.log("Rekog: ", Rekog)
+                            // console.log("title: ", title)
+                            shared_funcs.put2Dynamo(blogURL, dateUpdated, filter3[0], metadata, Rekog, all_ref_links, title)
+                        }
+                    }
                 }
             }
         }
@@ -174,4 +114,10 @@ async function crawlImgs(){
     })();
 } 
 
-crawlImgs();
+var index = 9
+// for (let index = 11; index >= 0; index--) {
+    let current_api = api + index;
+    console.log(":: ", current_api)
+    crawlImgs(current_api);
+    
+// }

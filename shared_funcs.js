@@ -1,9 +1,8 @@
-const axios = require('axios');
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
-const { title } = require('process');
-var AWS = require('aws-sdk');
+import axios from 'axios';
+import puppeteer  from 'puppeteer';
+import fs from 'fs';
+import path from 'path'
+import AWS from 'aws-sdk'
 
 // Set the region 
 AWS.config.update({region: 'ap-southeast-1'});
@@ -12,18 +11,17 @@ AWS.config.update({region: 'ap-southeast-1'});
 var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
 
-module.exports = {
-    getResFromRekog: function(img_url="https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/01/05/1.png") {
+function getResFromRekog(img_url="https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/01/05/1.png") {
     // Get response from Rekognition API
     // Param: arch img url
 
-    return axios.post('https://6pm97xomk2.execute-api.ap-southeast-1.amazonaws.com/dev/api/url-label', {
+    return axios.post('https://1dgha3g9nb.execute-api.ap-southeast-1.amazonaws.com/test/label', {
         "url": img_url
     }).then((res)=> {
         let data = res.data;
-        Rekog_labels = new Set()
-        Rekog_text_services = new Set()
-        Rekog_text_metadata = new Set()
+        var Rekog_labels = new Set()
+        var Rekog_text_services = new Set()
+        var Rekog_text_metadata = new Set()
         data.labels.forEach(element => {
             Rekog_labels.add(element.Name)
         });
@@ -37,40 +35,21 @@ module.exports = {
         })
         Rekog_text_services.delete("AWS")
         Rekog_text_services.delete("Amazon")
-        return {"labels":Array.from(Rekog_labels).join(', '),
-                "textServices": Array.from(Rekog_text_services).join(', '), 
+        return {"labels":Rekog_labels,
+                "textServices": Rekog_text_services, 
                 "textMetadata":Array.from( Rekog_text_metadata).join(', ')}
 
     })
     .catch((error) =>console.error(error));
-    },
+}
     
-    // getURLs: function(api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=alias%23architecture-center&sort_by=item.additionalFields.sortDate&sort_order=desc&size=311&item.locale=en_US&tags.id=GLOBAL%23content-type%23pattern") {
-    // // Return a list of URLs
 
-    //     return axios.get(api).then((response) => {
-    //         data = response.data.items;
-    //         console.log(`RESPONSE:\n`, data);
-    //         let blogLists = [];
-    //         let count = 0;
-    //         data.forEach(blog => {
-    //             blogLists.push([blog["item"]["additionalFields"]["headlineUrl"], blog["item"]["dateUpdated"]]);
-
-    //             count = count + 1;
-    //         });
-    //         console.log("------------------------------------blogLists length = ", blogLists.length)
-    //         console.log(blogLists)
-    //         return blogLists
-    //     })
-    //     .catch((error) =>console.error(error));
-    // },
-
-    put2Dynamo: function(originUrl, publishDate, arch_img_url, crawler_data, rekog_data, ref_links,title, table = 'AllieDiagrams'){
+function put2Dynamo(originUrl, publishDate, arch_img_url, crawler_data, rekog_data, ref_links,title, table = 'AllieDiagrams'){
         var write_params = {
             TableName: table,
             Item: {
-                'OriginURL': {S:originUrl  },
-                'PublishDate': {S: this.formatDate(publishDate)},
+                'OriginURL': {S: originUrl  },
+                'PublishDate': {S: formatDate(publishDate)},
                 'ArchitectureURL': {
                     S: arch_img_url
                 },
@@ -82,10 +61,10 @@ module.exports = {
                         'Rekognition': {
                             M:{
                                 "labels": {
-                                    S: rekog_data.labels
+                                    S: rekog_data.labels.toString()
                                 },
                                 "textServices": {
-                                    S: rekog_data.textServices
+                                    S: rekog_data.textServices.toString()
                                 },
                                 "textMetadata": {
                                     S: rekog_data.textMetadata
@@ -94,9 +73,7 @@ module.exports = {
                         }
                     }
                 },
-                'Reference': {
-                    S : ref_links
-                },
+                'Reference': ref_links,
                 'Title':{
                     S : title
                 }
@@ -106,20 +83,22 @@ module.exports = {
         // Call DynamoDB to add the item to the table
         ddb.putItem(write_params, function(err, data) {
         if (err) {
-            console.log("Error", err);
+            console.log("*** ddb Error", err);
         } else {
             console.log("Success", data);
         }
         });    
-    },
+}
 
 
-    put2DynamoWithoutRekog: function(originUrl, publishDate, arch_img_url, crawler_data, ref_links, title, table = 'AllieDiagrams'){
+
+
+function put2DynamoWithoutRekog(originUrl, publishDate, arch_img_url, crawler_data, ref_links, title, table = 'AllieDiagrams'){
         var write_params = {
             TableName: table,
             Item: {
                 'OriginURL': {S:originUrl  },
-                'PublishDate': {S: this.formatDate(publishDate)},
+                'PublishDate': {S: formatDate(publishDate)},
                 'ArchitectureURL': {
                     S: arch_img_url
                 },
@@ -127,12 +106,23 @@ module.exports = {
                     M: {
                         'crawler' : {
                             S: crawler_data
+                        },
+                        'Rekognition': {
+                            M:{
+                                "labels": {
+                                    S: ""
+                                },
+                                "textServices": {
+                                    S: ""
+                                },
+                                "textMetadata": {
+                                    S: ""
+                                }
+                            }
                         }
                     }
                 },
-                'Reference': {
-                    S : ref_links
-                },
+                'Reference': ref_links,
                 'Title':{
                     S : title
                 }
@@ -147,16 +137,19 @@ module.exports = {
             console.log("Success", data);
         }
         });    
-    },
+}
 
-    getRef: function(service_name) {
+function getRef(service_name) {
         // Return the Reference for the service
 
         service_name = service_name.toLowerCase()
         service_name = service_name.replace("aws", "")
         service_name = service_name.replace("amazon", "")
+        service_name = service_name.replace("-", " ")
+
     
         let ref_4_service_api = "https://emdnx5w672.execute-api.us-west-2.amazonaws.com/prod/search";
+        console.log("QueryText : ", service_name)
         return axios.post(ref_4_service_api, 
                 {"QueryText": service_name,
                     "PageNumber": 1,
@@ -165,16 +158,75 @@ module.exports = {
                     "Previous": ""}
         ).then(function(response) {
             // console.log(response.data)
-            let ref_link = response.data.ResultItems[0].DocumentURI
-            console.log(ref_link)
-            return ref_link
+            if (response!= undefined &&  response.data != undefined && response.data.ResultItems[0]!= undefined && response.data.ResultItems[0].DocumentURI != undefined){
+                let ref_link = response.data.ResultItems[0].DocumentURI
+                // console.log(ref_link)
+                return ref_link
+            }
+            else
+                return "not found"
+
         }).catch(function(error) {
             console.log(error)
         })
-    },
-
-    formatDate: function(date){
-        return date.replace("+0000", "+00:00")
     }
-   
+
+function formatDate(date){
+        return date.replace("+0000", "+00:00")
 }
+
+
+async function getRefList(list_service_1, list_service_2)
+{
+    list_service_1 = Array.from(list_service_1)
+    list_service_2 = Array.from(list_service_2)
+
+    var all_ref_links = new Set()
+    var service_link_list = []
+    console.log("list serice 1 :\n", list_service_1)
+    for (let index = 0; index < list_service_1.length; index++) {
+        let service_name = list_service_1[index];
+        service_name = service_name.trim();
+
+        if (service_name == "")
+            continue
+        let ref = await getRef(service_name)
+        
+        if (!all_ref_links.has(ref)){
+            service_link_list.push({
+                M: {
+                    "service":{
+                        S: service_name
+                    },
+                    "link":{
+                        S: ref
+                    }  
+                }
+            })  
+
+            all_ref_links.add(ref)
+        }
+    }
+
+    console.log("list serice 2 :\n", list_service_2)
+    for (let index = 0; index < list_service_2.length; index++) {
+        let service_name = list_service_2[index];
+        let ref = await getRef(service_name)
+        if (!all_ref_links.has(ref)){
+            service_link_list.push({
+                M: {
+                    "service":{
+                        S: service_name
+                    },
+                    "link":{
+                        S: ref
+                    }  
+                }
+            }) 
+            all_ref_links.add(ref)
+        }
+    }
+    return service_link_list
+}
+
+export {getResFromRekog, put2Dynamo, put2DynamoWithoutRekog, getRef, getRefList}
