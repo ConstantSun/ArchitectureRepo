@@ -34,12 +34,12 @@ exports.handler = async (event) => {
     var rekognition = new AWS.Rekognition();
     var rekognition_cross = await getCrossAccClient();
 
-    var model_arn_service_1 = "arn:aws:rekognition:ap-southeast-1:149138027712:project/capstone-service-detection-services-1/version/capstone-service-detection-services-1.2022-08-01T17.00.30/1659344430169"
-    var model_arn_service_2 = "arn:aws:rekognition:ap-southeast-1:149138027712:project/capstone-service-detection-services-2/version/capstone-service-detection-services-2.2022-08-01T17.02.24/1659344544515"
-    var model_arn_service_3 = "arn:aws:rekognition:ap-southeast-1:149138027712:project/capstone-service-detection-services-3/version/capstone-service-detection-services-3.2022-08-01T17.02.49/1659344569340"
-    var model_arn_service_4 = "arn:aws:rekognition:ap-southeast-1:974960484507:project/capstone-service-supplement/version/capstone-service-supplement.2022-08-02T08.35.49/1659400549946"
-    var model_arn_resource_1 = "arn:aws:rekognition:ap-southeast-1:974960484507:project/capstone-resource-detection-1/version/capstone-resource-detection-1.2022-07-29T12.49.11/1659070151574"
-    var model_arn_resource_2 = "arn:aws:rekognition:ap-southeast-1:974960484507:project/capstone-resource-detection-2/version/capstone-resource-detection-2.2022-07-29T12.50.09/1659070209434"
+    var model_arn_service_1 = "arn:aws:rekognition:ap-southeast-1:149138027713:project/capstone-service-detection-services-1/version/capstone-service-detection-services-1.2022-08-01T17.00.30/1659344430169"
+    var model_arn_service_2 = "arn:aws:rekognition:ap-southeast-1:149138027713:project/capstone-service-detection-services-2/version/capstone-service-detection-services-2.2022-08-01T17.02.24/1659344544515"
+    var model_arn_service_3 = "arn:aws:rekognition:ap-southeast-1:149138027713:project/capstone-service-detection-services-3/version/capstone-service-detection-services-3.2022-08-01T17.02.49/1659344569340"
+    var model_arn_service_4 = "arn:aws:rekognition:ap-southeast-1:974960484508:project/capstone-service-supplement/version/capstone-service-supplement.2022-08-02T08.35.49/1659400549946"
+    var model_arn_resource_1 = "arn:aws:rekognition:ap-southeast-1:974960484508:project/capstone-resource-detection-1/version/capstone-resource-detection-1.2022-07-29T12.49.11/1659070151574"
+    var model_arn_resource_2 = "arn:aws:rekognition:ap-southeast-1:974960484508:project/capstone-resource-detection-2/version/capstone-resource-detection-2.2022-07-29T12.50.09/1659070209434"
 
     var [
         label1,
