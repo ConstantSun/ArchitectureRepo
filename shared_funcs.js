@@ -44,6 +44,39 @@ function getResFromRekog(img_url="https://d2908q01vomqb2.cloudfront.net/fc074d50
 }
     
 
+function getResFromRekogHighConf(img_url="https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/01/05/1.png") {
+    // Get response from Rekognition API
+    // Param: arch img url
+
+    return axios.post('https://1dgha3g9nb.execute-api.ap-southeast-1.amazonaws.com/test/label', {
+        "url": img_url
+    }).then((res)=> {
+        let data = res.data;
+        var Rekog_labels = new Set()
+        var Rekog_text_services = new Set()
+        var Rekog_text_metadata = new Set()
+        data.labels.forEach(element => {
+            if (element.Confidence >= 40)
+                Rekog_labels.add(element.Name)
+        });
+        data.text.forEach(element=>{
+            if (element.DetectedText.includes("AWS") || element.DetectedText.includes("Amazon")) {
+                Rekog_text_services.add(element.DetectedText)
+            }
+            else{
+                Rekog_text_metadata.add(element.DetectedText)
+            }
+        })
+        Rekog_text_services.delete("AWS")
+        Rekog_text_services.delete("Amazon")
+        return {"labels":Rekog_labels,
+                "textServices": Rekog_text_services, 
+                "textMetadata":Array.from( Rekog_text_metadata).join(', ')}
+
+    })
+    .catch((error) =>console.error(error));
+}
+   
 function put2Dynamo(originUrl, publishDate, arch_img_url, crawler_data, rekog_data, ref_links,title, table = 'AllieDiagrams'){
         var write_params = {
             TableName: table,
@@ -229,4 +262,4 @@ async function getRefList(list_service_1, list_service_2)
     return service_link_list
 }
 
-export {getResFromRekog, put2Dynamo, put2DynamoWithoutRekog, getRef, getRefList}
+export {getResFromRekog, put2Dynamo, put2DynamoWithoutRekog,getResFromRekogHighConf, getRef, getRefList}

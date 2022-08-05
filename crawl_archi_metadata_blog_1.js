@@ -1,7 +1,7 @@
 import axios from 'axios';
 import puppeteer  from 'puppeteer';
 import fs from 'fs';
-import { put2Dynamo, getResFromRekog, getRef, getRefList } from "./shared_funcs.js";
+import { put2Dynamo, getResFromRekogHighConf, getRef, getRefList } from "./shared_funcs.js";
 
 
 const api = "https://aws.amazon.com/api/dirs/items/search?item.directoryId=blog-posts&sort_by=item.additionalFields.createdDate&sort_order=desc&size=2000&item.locale=en_US&page=1"
@@ -56,39 +56,41 @@ async function crawlImgs(){
             // Get img 
             const images = await page.evaluate(() => Array.from(document.images, e => e.src));
             var filter1 = images.filter(img => img.includes("d2908q01vomqb2.cloudfront.net"))
-            var filter2 = filter1.filter( function(img){
-                
-                return img.includes("arc") || img.includes("rchitecture") || img.includes("diagram")
-            }) ;
+            console.log("-----------------\n", filter1)
+            for (let index = 0; index < filter1.length; index++) {
+                let flag = false
+                const element = filter1[index];
 
-            if (filter2.length > 0) 
-            {
-                console.log(filter2);
-
-                // Get articleSection (metadata)
-                var articleSection = []
-                let metadata = await page.$$('span[property="articleSection"]')
-                for (let i = 0; i < metadata.length; i++) {
-                    const element = metadata[i];
-                    let value = await element.evaluate(el => el.textContent, element)
-                    console.log("value:");
-                    console.log(value);      
-                    articleSection.push(value);             
-                }
-                const title = await page.title();
-                const Rekog = await getResFromRekog(filter2[0])
+                const Rekog = await getResFromRekogHighConf(element);
                 if ( Rekog!= undefined){
-                    const all_ref_links = await getRefList(Rekog.labels, Rekog.textServices)
-                    if(all_ref_links.length >= 2){
-                        console.log("all ref links: \n", all_ref_links)
-                     
+                    if (Rekog.labels.size >= 2){
+                        flag = true;
+                        console.log("Rekog.labels.size = ", Rekog.labels.size)
+                        console.log("Selected img url  = ", element)
+                        var articleSection = []
+                        let metadata = await page.$$('span[property="articleSection"]')
+                        for (let i = 0; i < metadata.length; i++) {
+                            const element = metadata[i];
+                            let value = await element.evaluate(el => el.textContent, element)
+                            console.log("value:");
+                            console.log(value);      
+                            articleSection.push(value);             
+                        }
+                        const title = await page.title();
+                        const all_ref_links = await getRefList(Rekog.labels, Rekog.textServices)
+
                         num_of_valid_arch_urls = num_of_valid_arch_urls + 1
-                        put2Dynamo(URLs[index][0], URLs[index][1], filter2[0], articleSection.toString(), Rekog, {L: all_ref_links}, title, "test")
+
+                        put2Dynamo(URLs[index][0], URLs[index][1], element, articleSection.toString(), Rekog, {L: all_ref_links}, title, "test2")
+
+                        console.log("num_of_valid_arch_urls = ", num_of_valid_arch_urls)
                     }
                 }
-                if (num_of_valid_arch_urls == 500)
+                if ( Rekog!= undefined && Rekog.labels.size >= 2){
                     break
+                }
             }
+
         }
         num_valid_res_blog = {"valid arch": num_of_valid_arch_urls}
         console.log("valid arch : ", num_of_valid_arch_urls)
