@@ -1,0 +1,487 @@
+RESPONSE:
+
+blogLists length =  2000
+Crawling urls completed
+index:  0
+page =  https://aws.amazon.com/blogs/hpc/introducing-aws-parallelcluster-multiuser-support-via-active-directory/
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/hpc/introducing-aws-parallelcluster-multiuser-support-via-active-directory/
+date: 2022-07-29T20:37:01+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/e6c3dd630428fd54834172b8fd2735fed9416da4/2022/01/25/hpcblog-115-fig1.png',
+  'https://d2908q01vomqb2.cloudfront.net/e6c3dd630428fd54834172b8fd2735fed9416da4/2021/04/01/auscha-profil-li.jpg'
+]
+index:  1
+page =  https://aws.amazon.com/blogs/compute/introducing-aws-virtual-waiting-room/
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/compute/introducing-aws-virtual-waiting-room/
+date: 2022-07-31T04:22:33+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room1.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room2.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room3.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room4.jpg.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room5.jpg.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room6.jpg.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room7.jpg.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room8.jpg.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room9.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room10.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room11.png'
+]
+Rekog.labels.size =  4
+Selected img url  =  https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room1.jpg
+value:
+Customer Solutions
+value:
+Serverless
+value:
+Technical How-to
+list serice 1 :
+ [
+  'Amazon-EventBridge-Custom-Event-Bus',
+  'AWS-Cloud9-Cloud9',
+  'AWS-Lambda',
+  'Amazon-Simple-Notification-Service'
+]
+QueryText :   eventbridge-custom-event-bus
+QueryText :   cloud9-cloud9
+QueryText :   lambda
+QueryText :   simple-notification-service
+list serice 2 :
+ [
+  'AWS Cloud',
+  'Amazon DynamoDB',
+  'Amazon S3',
+  'Amazon CloudWatch',
+  'Amazon CloudFront',
+  'Amazon SQS',
+  'Amazon API Gateway',
+  'Amazon EventBridge',
+  'Amazon SNS'
+]
+QueryText :   cloud
+QueryText :   dynamodb
+QueryText :   s3
+QueryText :   cloudwatch
+QueryText :   cloudfront
+QueryText :   sqs
+QueryText :   api gateway
+QueryText :   eventbridge
+QueryText :   sns
+num_of_valid_arch_urls =  1
+index:  2
+page =  https://aws.amazon.com/blogs/big-data/amazon-redshift-at-aws-reinvent-2021-recap/
+Success {}
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/big-data/amazon-redshift-at-aws-reinvent-2021-recap/
+date: 2022-07-30T09:36:09+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2022/02/01/Sunaina-headshot.jpg'
+]
+index:  3
+page =  https://aws.amazon.com/blogs/machine-learning/reduce-costs-and-complexity-of-ml-preprocessing-with-amazon-s3-object-lambda/
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/machine-learning/reduce-costs-and-complexity-of-ml-preprocessing-with-amazon-s3-object-lambda/
+date: 2022-07-30T07:53:47+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2022/02/03/ml_6508_fig1.png',
+  'https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2022/02/03/Nate-Bachmeir.png',
+  'https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2022/02/03/Marvin-Fernandes.jpg'
+]
+Rekog.labels.size =  3
+Selected img url  =  https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2022/02/03/ml_6508_fig1.png
+value:
+Amazon Machine Learning
+value:
+Serverless
+list serice 1 :
+ [ 'Amazon-Braket', 'AWS-Backup', 'Amazon-Augmented-AI-A2I' ]
+QueryText :   braket
+QueryText :   backup
+QueryText :   augmented-ai-a2i
+list serice 2 :
+ [
+  'Amazon S3',
+  'Amazon SageMaker',
+  'Amazon S3 Access',
+  'Amazon S3 Object',
+  'AWS Lambda'
+]
+QueryText :   s3
+QueryText :   sagemaker
+QueryText :   s3 access
+QueryText :   s3 object
+QueryText :   lambda
+num_of_valid_arch_urls =  2
+index:  4
+page =  https://aws.amazon.com/blogs/networking-and-content-delivery/automated-vpc-prefix-list-population-for-cross-region-and-in-region-security-group-referencing/
+Success {}
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/networking-and-content-delivery/automated-vpc-prefix-list-population-for-cross-region-and-in-region-security-group-referencing/
+date: 2022-07-30T05:19:38+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/5b384ce32d8cdef02bc3a139d4cac0a22bb029e8/2022/02/08/AutoSG2PL.png',
+  'https://d2908q01vomqb2.cloudfront.net/5b384ce32d8cdef02bc3a139d4cac0a22bb029e8/2022/02/08/20211202_122248.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/5b384ce32d8cdef02bc3a139d4cac0a22bb029e8/2020/09/14/ShovanDas_125.png'
+]
+index:  5
+page =  https://aws.amazon.com/blogs/compute/creating-computing-quotas-on-aws-outposts-rack-with-ec2-capacity-reservation-sharing/
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/compute/creating-computing-quotas-on-aws-outposts-rack-with-ec2-capacity-reservation-sharing/
+date: 2022-07-31T04:22:53+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/03/computequoteoutposts1_alt-1.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/03/computequoteoutposts2_alt.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/03/computequoteoutposts3_alt-1.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts4.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts5.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts6.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts7.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts8.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts9.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts10.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts11.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts12.png'
+]
+index:  6
+page =  https://aws.amazon.com/blogs/apn/revolutionizing-application-resource-management-with-cisco-intersight-workload-optimizer/
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/apn/revolutionizing-application-resource-management-with-cisco-intersight-workload-optimizer/
+date: 2022-07-31T05:22:34+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/02/10/Cisco-AWS-Partners-1-300x150.png',
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2021/02/22/Connect-with-Cisco-4-300x116.png',
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/02/09/Cisco-Intersigh-Workload-Optimizer-1.png',
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/02/09/Cisco-Intersigh-Workload-Optimizer-2.png',
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/02/09/Cisco-Intersight-Workload-Optimizer-3.png',
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/02/09/Cisco-Intersight-Workload-Optimizer-4.png',
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/02/09/Cisco-Intersight-Workload-Optimizer-5.png',
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/02/10/Cisco-APN-Blog-CTA-3.png'
+]
+index:  7
+page =  https://aws.amazon.com/blogs/architecture/optimize-ai-ml-workloads-for-sustainability-part-1-identify-business-goals-validate-ml-use-and-process-data/
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/architecture/optimize-ai-ml-workloads-for-sustainability-part-1-identify-business-goals-validate-ml-use-and-process-data/
+date: 2022-07-30T06:24:14+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/02/10/Figure-1.-ML-lifecycle.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/02/10/Figure-2.-Managed-AWS-AI-services.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/02/10/figure3-1-1.png',
+  'https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/02/10/s3access.png',
+  'https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/02/10/Benoit-de-Chateauvieux.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/02/10/Eddie-Pick.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/02/10/Dan-Ferguson.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/02/10/Brendan-Sisson.jpg'
+]
+Rekog.labels.size =  3
+Selected img url  =  https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/02/10/Figure-2.-Managed-AWS-AI-services.jpg
+value:
+Artificial Intelligence
+value:
+AWS Well-Architected
+value:
+Sustainability
+list serice 1 :
+ [
+  'Amazon-Comprehend',
+  'Amazon-Textract',
+  'Amazon-Lookout-for-Equipment'
+]
+QueryText :   comprehend
+QueryText :   textract
+QueryText :   lookout-for-equipment
+list serice 2 :
+ [ 'AWS Panorama', 'Amazon Lookout', 'for Amazon Connect' ]
+QueryText :   panorama
+QueryText :   lookout
+QueryText :  for  connect
+num_of_valid_arch_urls =  3
+index:  8
+page =  https://aws.amazon.com/blogs/industries/improving-customer-experience-and-delivering-94-savings-using-amazon-lex/
+Success {}
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/industries/improving-customer-experience-and-delivering-94-savings-using-amazon-lex/
+date: 2022-07-29T21:37:09+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/c5b76da3e608d34edb07244cd9b875ee86906328/2022/02/09/agent-vs-Amazon-Lex-costs.png',
+  'https://d2908q01vomqb2.cloudfront.net/c5b76da3e608d34edb07244cd9b875ee86906328/2022/02/09/agent-burden-vs-Amazon-Lex-costs.png',
+  'https://d2908q01vomqb2.cloudfront.net/c5b76da3e608d34edb07244cd9b875ee86906328/2022/02/09/Chandra-Reddy-headshot.jpg'
+]
+index:  9
+page =  https://aws.amazon.com/blogs/database/how-to-sign-ethereum-eip-1559-transactions-using-aws-kms/
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/database/how-to-sign-ethereum-eip-1559-transactions-using-aws-kms/
+date: 2022-07-30T14:55:34+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/887309d048beef83ad3eabf2a79a64a389ab1c9f/2022/02/04/DBBLOG-1841-image001.png',
+  'https://d2908q01vomqb2.cloudfront.net/887309d048beef83ad3eabf2a79a64a389ab1c9f/2022/02/04/DBBLOG-1841-image003.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/887309d048beef83ad3eabf2a79a64a389ab1c9f/2022/02/04/DBBLOG-1841-image005.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/887309d048beef83ad3eabf2a79a64a389ab1c9f/2022/02/04/DBBLOG-1841-image007.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/887309d048beef83ad3eabf2a79a64a389ab1c9f/2022/02/04/DBBLOG-1841-image009.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/887309d048beef83ad3eabf2a79a64a389ab1c9f/2022/02/04/DBBLOG-1841-image011.png',
+  'https://d2908q01vomqb2.cloudfront.net/887309d048beef83ad3eabf2a79a64a389ab1c9f/2022/02/04/DBBLOG-1841-image013.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/887309d048beef83ad3eabf2a79a64a389ab1c9f/2022/02/04/DBBLOG-1841-image015.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/887309d048beef83ad3eabf2a79a64a389ab1c9f/2022/02/08/David-Dornseifer.png',
+  'https://d2908q01vomqb2.cloudfront.net/887309d048beef83ad3eabf2a79a64a389ab1c9f/2022/02/08/Thomas-von-Bomhard.png'
+]
+Rekog.labels.size =  2
+Selected img url  =  https://d2908q01vomqb2.cloudfront.net/887309d048beef83ad3eabf2a79a64a389ab1c9f/2022/02/04/DBBLOG-1841-image001.png
+value:
+Amazon Managed Blockchain
+value:
+AWS Key Management Service
+list serice 1 :
+ [ 'AWS-Management-Console', 'AWS-Lambda' ]
+QueryText :   management-console
+QueryText :   lambda
+list serice 2 :
+ [
+  'AWS Cloud',
+  'AWS KMS',
+  'AWS Management Console',
+  'AWS Lambda',
+  'Amazon Managed'
+]
+QueryText :   cloud
+QueryText :   kms
+QueryText :   management console
+QueryText :   lambda
+QueryText :   managed
+num_of_valid_arch_urls =  4
+index:  10
+page =  https://aws.amazon.com/blogs/startups/should-startups-use-infrastructure-as-code-iac/
+Success {}
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/startups/should-startups-use-infrastructure-as-code-iac/
+date: 2022-07-30T10:51:38+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/cb4e5208b4cd87268b208e49452ed6e89a68e0b8/2022/02/08/Ed_Epstein_photo.png',
+  'https://d2908q01vomqb2.cloudfront.net/356a192b7913b04c54574d18c28d46e6395428ab/2017/09/12/aws-smile-logo.png'
+]
+index:  11
+page =  https://aws.amazon.com/blogs/architecture/how-to-run-massively-scalable-adas-simulation-workloads-on-caedge/
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/architecture/how-to-run-massively-scalable-adas-simulation-workloads-on-caedge/
+date: 2022-07-30T06:02:01+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/02/08/Figure-1.-Architecture-diagram-for-autonomous-driving-simulation.png',
+  'https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/02/08/Figure2-SpecSIMS.png',
+  'https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/02/08/Figure3-ReadSIMS.png',
+  'https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/02/08/Figure4-BE-arch.png',
+  'https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2021/07/26/Hendrik-Schoeneberg.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2020/10/12/junjie_tang.jpeg',
+  'https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/02/08/Rumeshkrishnan-Mohan.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/02/02/The-An-Binh-Nguyen.png'
+]
+Rekog.labels.size =  3
+Selected img url  =  https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/02/08/Figure-1.-Architecture-diagram-for-autonomous-driving-simulation.png
+value:
+Amazon EC2
+value:
+Amazon Elastic Container Registry
+value:
+Amazon Managed Workflows for Apache Airflow (Amazon MWAA)
+value:
+Architecture
+value:
+Automotive
+value:
+AWS Batch
+value:
+AWS Lake Formation
+list serice 1 :
+ [
+  'Amazon-Simple-Storage-Service-S3-Standard',
+  'AWS-Lambda',
+  'Amazon-DynamoDB'
+]
+QueryText :   simple-storage-service-s3-standard
+QueryText :   lambda
+QueryText :   dynamodb
+list serice 2 :
+ [ 'AWS Batch' ]
+QueryText :   batch
+num_of_valid_arch_urls =  5
+index:  12
+page =  https://aws.amazon.com/blogs/industries/new-climate-next-documentary-episode-driving-toward-cheaper-greener-power-with-octopus-energy/
+Success {}
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/industries/new-climate-next-documentary-episode-driving-toward-cheaper-greener-power-with-octopus-energy/
+date: 2022-07-29T21:46:23+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/c5b76da3e608d34edb07244cd9b875ee86906328/2022/02/08/octopus-1.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/c5b76da3e608d34edb07244cd9b875ee86906328/2022/02/08/octopus-2.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/c5b76da3e608d34edb07244cd9b875ee86906328/2022/02/08/octopus-3.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/c5b76da3e608d34edb07244cd9b875ee86906328/2020/08/05/Mary-Wilson.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/c5b76da3e608d34edb07244cd9b875ee86906328/2020/02/24/donmcdon.jpg'
+]
+index:  13
+page =  https://aws.amazon.com/blogs/apn/improving-managed-services-with-amazon-devops-guru-and-next-generation-monitoring/
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/apn/improving-managed-services-with-amazon-devops-guru-and-next-generation-monitoring/
+date: 2022-07-31T05:26:29+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/02/16/Effectual-AWS-Partners-2-300x150.png',
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2021/05/04/Connect-with-Effectual-1-300x107.png',
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/02/09/Effectual-DevOps-Guru-1.png',
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/01/21/Effectual-DevOps-Guru-2.png',
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/01/21/Effectual-DevOps-Guru-3.png',
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/01/21/Effectual-DevOps-Guru-4.png',
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/02/09/Effectual-APN-Blog-CTA-2.png'
+]
+Rekog.labels.size =  4
+Selected img url  =  https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/01/21/Effectual-DevOps-Guru-4.png
+value:
+Amazon DevOps Guru
+value:
+Artificial Intelligence
+value:
+AWS Partner Network
+value:
+Customer Solutions
+value:
+Intermediate (200)
+value:
+Thought Leadership
+list serice 1 :
+ [
+  'AWS-Lambda',
+  'Amazon-DynamoDB',
+  'Amazon-Simple-Notification-Service',
+  'AWS-AppSync'
+]
+QueryText :   lambda
+QueryText :   dynamodb
+QueryText :   simple-notification-service
+QueryText :   appsync
+list serice 2 :
+ [
+  'AWS DevOps Guru - Insights Workflow',
+  'AWS Lambda',
+  'AWS AppSync',
+  'Amazon API AWS Lambda'
+]
+QueryText :   devops guru   insights workflow
+QueryText :   lambda
+QueryText :   appsync
+QueryText :   api  lambda
+num_of_valid_arch_urls =  6
+index:  14
+page =  https://aws.amazon.com/blogs/apn/saint-louis-university-improves-researcher-productivity-by-automating-processing-of-large-datasets/
+Success {}
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/apn/saint-louis-university-improves-researcher-productivity-by-automating-processing-of-large-datasets/
+date: 2022-07-31T05:41:58+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/02/07/Saint-Louis-Large-Datasets-1.png',
+  'https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/02/09/MontyCloud-APN-Blog-CTA-1.png'
+]
+Rekog.labels.size =  2
+Selected img url  =  https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2022/02/07/Saint-Louis-Large-Datasets-1.png
+value:
+Analytics
+value:
+AWS Marketplace
+value:
+Customer Solutions
+value:
+Intermediate (200)
+value:
+Public Sector
+value:
+Thought Leadership
+list serice 1 :
+ [ 'Amazon-Braket', 'AWS-Lambda' ]
+QueryText :   braket
+QueryText :   lambda
+list serice 2 :
+ [ 'Amazon S3', 'Amazon EC2', 'AWS Lambda' ]
+QueryText :   s3
+QueryText :   ec2
+QueryText :   lambda
+num_of_valid_arch_urls =  7
+index:  15
+page =  https://aws.amazon.com/blogs/containers/deep-dive-on-aws-app-runner-vpc-networking/
+Success {}
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/containers/deep-dive-on-aws-app-runner-vpc-networking/
+date: 2022-07-30T01:22:37+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/fe2ef495a1152561572949784c16bf23abb28057/2022/01/13/image-19.png',
+  'https://d2908q01vomqb2.cloudfront.net/fe2ef495a1152561572949784c16bf23abb28057/2022/01/13/image-20.png',
+  'https://d2908q01vomqb2.cloudfront.net/fe2ef495a1152561572949784c16bf23abb28057/2022/01/13/image-21.png',
+  'https://d2908q01vomqb2.cloudfront.net/fe2ef495a1152561572949784c16bf23abb28057/2022/01/13/image-22.png',
+  'https://d2908q01vomqb2.cloudfront.net/fe2ef495a1152561572949784c16bf23abb28057/2022/01/14/ArchanaSrikanta.png'
+]
+Rekog.labels.size =  2
+Selected img url  =  https://d2908q01vomqb2.cloudfront.net/fe2ef495a1152561572949784c16bf23abb28057/2022/01/13/image-19.png
+value:
+Announcements
+value:
+Containers
+list serice 1 :
+ [ 'AWS-Cloud9-Cloud9', 'AWS-Fargate' ]
+QueryText :   cloud9-cloud9
+QueryText :   fargate
+list serice 2 :
+ [ 'AWS network' ]
+QueryText :   network
+num_of_valid_arch_urls =  8
+index:  16
+page =  https://aws.amazon.com/blogs/media/preparing-your-video-library-for-avod-ott/
+Success {}
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/media/preparing-your-video-library-for-avod-ott/
+date: 2022-07-30T01:50:27+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/fb644351560d8296fe6da332236b1f8d61b2828a/2022/02/07/AVOD1.png',
+  'https://d2908q01vomqb2.cloudfront.net/fb644351560d8296fe6da332236b1f8d61b2828a/2022/02/07/AVOD2.png',
+  'https://d2908q01vomqb2.cloudfront.net/fb644351560d8296fe6da332236b1f8d61b2828a/2022/02/07/AVOD3.png',
+  'https://d2908q01vomqb2.cloudfront.net/fb644351560d8296fe6da332236b1f8d61b2828a/2022/02/07/AVOD4.png',
+  'https://d2908q01vomqb2.cloudfront.net/fb644351560d8296fe6da332236b1f8d61b2828a/2022/02/07/AVOD5.png',
+  'https://d2908q01vomqb2.cloudfront.net/fb644351560d8296fe6da332236b1f8d61b2828a/2022/02/07/AVOD6.png',
+  'https://d2908q01vomqb2.cloudfront.net/fb644351560d8296fe6da332236b1f8d61b2828a/2022/02/07/AVOD7.png',
+  'https://d2908q01vomqb2.cloudfront.net/fb644351560d8296fe6da332236b1f8d61b2828a/2022/02/07/AVOD8.png',
+  'https://d2908q01vomqb2.cloudfront.net/fb644351560d8296fe6da332236b1f8d61b2828a/2022/02/07/AVOD9.png',
+  'https://d2908q01vomqb2.cloudfront.net/fb644351560d8296fe6da332236b1f8d61b2828a/2022/02/07/AVOD10.png',
+  'https://d2908q01vomqb2.cloudfront.net/fb644351560d8296fe6da332236b1f8d61b2828a/2022/02/07/AVOD11.png',
+  'https://d2908q01vomqb2.cloudfront.net/fb644351560d8296fe6da332236b1f8d61b2828a/2022/02/07/AVOD12.png',
+  'https://d2908q01vomqb2.cloudfront.net/fb644351560d8296fe6da332236b1f8d61b2828a/2019/10/03/close.png',
+  'https://d2908q01vomqb2.cloudfront.net/fb644351560d8296fe6da332236b1f8d61b2828a/2022/06/09/3dd3d9469f77c3d2394e522d3a12617a.png'
+]
+^Cubuntu@ip-172-31-18-207:~/cap1/Archi

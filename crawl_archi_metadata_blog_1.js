@@ -44,19 +44,21 @@ async function crawlImgs(){
         var arcImg_and_metadata = []
         var num_of_valid_arch_urls = 0
 
-        for (let index = 0; index < URLs.length; index++) 
+        for (let index = 16; index < URLs.length; index++) 
         {
             console.log("index: ", index)
             let blogURL = URLs[index][0];
             let dateUpdated = URLs[index][1];
+            // //test
+            // blogURL = "https://aws.amazon.com/blogs/modernizing-with-aws/sql-server-high-availability-amazon-fsx-for-netapp-ontap/"
             console.log("page = ", blogURL)
             await page.goto(blogURL);
-            // console.log("blogUrl:", blogURL);
-            // console.log("date:", dateUpdated);
+            console.log("\n---------------------\nblogUrl:", blogURL);
+            console.log("date:", dateUpdated);
             // Get img 
             const images = await page.evaluate(() => Array.from(document.images, e => e.src));
             var filter1 = images.filter(img => img.includes("d2908q01vomqb2.cloudfront.net"))
-            console.log("-----------------\n", filter1)
+            console.log("all imgs:\n", filter1)
             for (let index = 0; index < filter1.length; index++) {
                 let flag = false
                 const element = filter1[index];
@@ -81,7 +83,7 @@ async function crawlImgs(){
 
                         num_of_valid_arch_urls = num_of_valid_arch_urls + 1
 
-                        put2Dynamo(URLs[index][0], URLs[index][1], element, articleSection.toString(), Rekog, {L: all_ref_links}, title, "test2")
+                        put2Dynamo(blogURL, dateUpdated, element, articleSection.toString(), Rekog, {L: all_ref_links}, title, "newblog")
 
                         console.log("num_of_valid_arch_urls = ", num_of_valid_arch_urls)
                     }

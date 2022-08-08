@@ -1,0 +1,166 @@
+RESPONSE:
+
+blogLists length =  2000
+Crawling urls completed
+index:  0
+page =  https://aws.amazon.com/blogs/hpc/introducing-aws-parallelcluster-multiuser-support-via-active-directory/
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/hpc/introducing-aws-parallelcluster-multiuser-support-via-active-directory/
+date: 2022-07-29T20:37:01+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/e6c3dd630428fd54834172b8fd2735fed9416da4/2022/01/25/hpcblog-115-fig1.png',
+  'https://d2908q01vomqb2.cloudfront.net/e6c3dd630428fd54834172b8fd2735fed9416da4/2021/04/01/auscha-profil-li.jpg'
+]
+index:  1
+page =  https://aws.amazon.com/blogs/compute/introducing-aws-virtual-waiting-room/
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/compute/introducing-aws-virtual-waiting-room/
+date: 2022-07-31T04:22:33+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room1.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room2.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room3.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room4.jpg.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room5.jpg.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room6.jpg.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room7.jpg.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room8.jpg.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room9.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room10.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room11.png'
+]
+Rekog.labels.size =  4
+Selected img url  =  https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room1.jpg
+value:
+Customer Solutions
+value:
+Serverless
+value:
+Technical How-to
+list serice 1 :
+ [
+  'Amazon-EventBridge-Custom-Event-Bus',
+  'AWS-Cloud9-Cloud9',
+  'AWS-Lambda',
+  'Amazon-Simple-Notification-Service'
+]
+QueryText :   eventbridge-custom-event-bus
+QueryText :   cloud9-cloud9
+QueryText :   lambda
+QueryText :   simple-notification-service
+list serice 2 :
+ [
+  'AWS Cloud',
+  'Amazon DynamoDB',
+  'Amazon S3',
+  'Amazon CloudWatch',
+  'Amazon CloudFront',
+  'Amazon SQS',
+  'Amazon API Gateway',
+  'Amazon EventBridge',
+  'Amazon SNS'
+]
+QueryText :   cloud
+QueryText :   dynamodb
+QueryText :   s3
+QueryText :   cloudwatch
+QueryText :   cloudfront
+QueryText :   sqs
+QueryText :   api gateway
+QueryText :   eventbridge
+QueryText :   sns
+WRITE TO DDB: 
+originUrl :    https://aws.amazon.com/blogs/hpc/introducing-aws-parallelcluster-multiuser-support-via-active-directory/
+publishDate:   2022-07-29T20:37:01+0000
+arch_img_url:  https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/09/waiting-room1.jpg
+num_of_valid_arch_urls =  1
+index:  2
+page =  https://aws.amazon.com/blogs/big-data/amazon-redshift-at-aws-reinvent-2021-recap/
+Success {}
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/big-data/amazon-redshift-at-aws-reinvent-2021-recap/
+date: 2022-07-30T09:36:09+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/b6692ea5df920cad691c20319a6fffd7a4a766b8/2022/02/01/Sunaina-headshot.jpg'
+]
+index:  3
+page =  https://aws.amazon.com/blogs/machine-learning/reduce-costs-and-complexity-of-ml-preprocessing-with-amazon-s3-object-lambda/
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/machine-learning/reduce-costs-and-complexity-of-ml-preprocessing-with-amazon-s3-object-lambda/
+date: 2022-07-30T07:53:47+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2022/02/03/ml_6508_fig1.png',
+  'https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2022/02/03/Nate-Bachmeir.png',
+  'https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2022/02/03/Marvin-Fernandes.jpg'
+]
+Rekog.labels.size =  3
+Selected img url  =  https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2022/02/03/ml_6508_fig1.png
+value:
+Amazon Machine Learning
+value:
+Serverless
+list serice 1 :
+ [ 'Amazon-Braket', 'AWS-Backup', 'Amazon-Augmented-AI-A2I' ]
+QueryText :   braket
+QueryText :   backup
+QueryText :   augmented-ai-a2i
+list serice 2 :
+ [
+  'Amazon S3',
+  'Amazon SageMaker',
+  'Amazon S3 Access',
+  'Amazon S3 Object',
+  'AWS Lambda'
+]
+QueryText :   s3
+QueryText :   sagemaker
+QueryText :   s3 access
+QueryText :   s3 object
+QueryText :   lambda
+WRITE TO DDB: 
+originUrl :    https://aws.amazon.com/blogs/hpc/introducing-aws-parallelcluster-multiuser-support-via-active-directory/
+publishDate:   2022-07-29T20:37:01+0000
+arch_img_url:  https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2022/02/03/ml_6508_fig1.png
+num_of_valid_arch_urls =  2
+index:  4
+page =  https://aws.amazon.com/blogs/networking-and-content-delivery/automated-vpc-prefix-list-population-for-cross-region-and-in-region-security-group-referencing/
+Success {}
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/networking-and-content-delivery/automated-vpc-prefix-list-population-for-cross-region-and-in-region-security-group-referencing/
+date: 2022-07-30T05:19:38+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/5b384ce32d8cdef02bc3a139d4cac0a22bb029e8/2022/02/08/AutoSG2PL.png',
+  'https://d2908q01vomqb2.cloudfront.net/5b384ce32d8cdef02bc3a139d4cac0a22bb029e8/2022/02/08/20211202_122248.jpg',
+  'https://d2908q01vomqb2.cloudfront.net/5b384ce32d8cdef02bc3a139d4cac0a22bb029e8/2020/09/14/ShovanDas_125.png'
+]
+index:  5
+page =  https://aws.amazon.com/blogs/compute/creating-computing-quotas-on-aws-outposts-rack-with-ec2-capacity-reservation-sharing/
+
+---------------------
+blogUrl: https://aws.amazon.com/blogs/compute/creating-computing-quotas-on-aws-outposts-rack-with-ec2-capacity-reservation-sharing/
+date: 2022-07-31T04:22:53+0000
+all imgs:
+ [
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/03/computequoteoutposts1_alt-1.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/03/computequoteoutposts2_alt.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/02/03/computequoteoutposts3_alt-1.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts4.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts5.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts6.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts7.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts8.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts9.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts10.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts11.png',
+  'https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2022/01/28/computequoteoutposts12.png'
+]

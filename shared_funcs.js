@@ -78,6 +78,10 @@ function getResFromRekogHighConf(img_url="https://d2908q01vomqb2.cloudfront.net/
 }
    
 function put2Dynamo(originUrl, publishDate, arch_img_url, crawler_data, rekog_data, ref_links,title, table = 'AllieDiagrams'){
+        console.log("WRITE TO DDB: ")
+        console.log("originUrl :   ", originUrl)
+        console.log("publishDate:  ", publishDate)
+        console.log("arch_img_url: ", arch_img_url)
         var write_params = {
             TableName: table,
             Item: {
