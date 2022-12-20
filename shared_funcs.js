@@ -9,14 +9,13 @@ AWS.config.update({region: 'ap-southeast-1'});
 
 // Create the DynamoDB service object
 var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
-var LABEL_API = "api endpoint with path to label resource"
 
 
 function getResFromRekog(img_url="https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2022/01/05/1.png") {
     // Get response from Rekognition API
     // Param: arch img url
 
-    return axios.post(LABEL_API, {
+    return axios.post('https://1dgha3g9nb.execute-api.ap-southeast-1.amazonaws.com/test/label', {
         "url": img_url
     }).then((res)=> {
         let data = res.data;
@@ -36,8 +35,8 @@ function getResFromRekog(img_url="https://d2908q01vomqb2.cloudfront.net/fc074d50
         })
         Rekog_text_services.delete("AWS")
         Rekog_text_services.delete("Amazon")
-        return {"labels":Rekog_labels,
-                "textServices": Rekog_text_services, 
+        return {"labels":Array.from(Rekog_labels).join(', '),
+                "textServices": Array.from(Rekog_text_services).join(', '), 
                 "textMetadata":Array.from( Rekog_text_metadata).join(', ')}
 
     })
@@ -49,7 +48,7 @@ function getResFromRekogHighConf(img_url="https://d2908q01vomqb2.cloudfront.net/
     // Get response from Rekognition API
     // Param: arch img url
 
-    return axios.post(LABEL_API, {
+    return axios.post('https://1dgha3g9nb.execute-api.ap-southeast-1.amazonaws.com/test/label', {
         "url": img_url
     }).then((res)=> {
         let data = res.data;
@@ -70,8 +69,8 @@ function getResFromRekogHighConf(img_url="https://d2908q01vomqb2.cloudfront.net/
         })
         Rekog_text_services.delete("AWS")
         Rekog_text_services.delete("Amazon")
-        return {"labels":Rekog_labels,
-                "textServices": Rekog_text_services, 
+        return {"labels":Array.from(Rekog_labels).join(', '),
+                "textServices": Array.from(Rekog_text_services).join(', '), 
                 "textMetadata":Array.from( Rekog_text_metadata).join(', ')}
 
     })
@@ -99,10 +98,10 @@ function put2Dynamo(originUrl, publishDate, arch_img_url, crawler_data, rekog_da
                         'Rekognition': {
                             M:{
                                 "labels": {
-                                    S: rekog_data.labels.toString()
+                                    S: rekog_data.labels
                                 },
                                 "textServices": {
-                                    S: rekog_data.textServices.toString()
+                                    S: rekog_data.textServices
                                 },
                                 "textMetadata": {
                                     S: rekog_data.textMetadata
